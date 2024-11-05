@@ -13,19 +13,20 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     ciphertext = ""
     for i in plaintext:
-        if ord('a') > ord(i.lower()) or ord(i.lower()) > ord('z'):
+        if ord("a") > ord(i.lower()) or ord(i.lower()) > ord("z"):
             ciphertext += i
-        if ord(i.lower()) + shift <= ord('z'):
+        if ord(i.lower()) + shift <= ord("z"):
             if i.isupper():
                 ciphertext += (chr(ord(i.lower()) + shift)).upper()
             if i.islower():
                 ciphertext += (chr(ord(i) + shift)).lower()
         else:
             if i.isupper():
-                ciphertext += (chr(ord('a') + (ord(i.lower()) + shift - ord('z')) - 1)).upper()
+                ciphertext += (chr(ord("a") + (ord(i.lower()) + shift - ord("z")) - 1)).upper()
             if i.islower():
-                ciphertext += (chr(ord('a') + (ord(i) + shift - ord('z')) - 1)).lower()
+                ciphertext += (chr(ord("a") + (ord(i) + shift - ord("z")) - 1)).lower()
     return ciphertext
+
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
@@ -42,16 +43,16 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     plaintext = ""
     for i in ciphertext:
-        if ord('a') > ord(i.lower()) or ord(i.lower()) > ord('z'):
+        if ord("a") > ord(i.lower()) or ord(i.lower()) > ord("z"):
             plaintext += i
-        if ord(i.lower()) - shift >= ord('a'):
+        if ord(i.lower()) - shift >= ord("a"):
             if i.isupper():
                 plaintext += (chr(ord(i) - shift)).upper()
             if i.islower():
                 plaintext += (chr(ord(i) - shift)).lower()
         else:
             if i.isupper():
-                plaintext += (chr(ord(i) - ord('a') + ord('z') - shift + 1)).upper()
+                plaintext += (chr(ord(i) - ord("a") + ord("z") - shift + 1)).upper()
             if i.islower():
-                plaintext += (chr(ord(i) - ord('a') + ord('z') - shift + 1)).lower()
+                plaintext += (chr(ord(i) - ord("a") + ord("z") - shift + 1)).lower()
     return plaintext
