@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox, ttk
+from copy import deepcopy
+from tkinter import ttk
 from typing import List
 
 from maze import add_path_to_grid, bin_tree_maze, solve_maze
@@ -28,10 +29,13 @@ def draw_maze(grid: List[List[str | int]], size: int = 10):
 def show_solution():
     maze, path = solve_maze(GRID)
     maze = add_path_to_grid(GRID, path)
-    if path:
-        draw_maze(maze, CELL_SIZE)
-    else:
-        tk.messagebox.showinfo("Message", "No solutions")
+    draw_maze(maze, CELL_SIZE)
+
+
+def check_solution(grid: List[List[str | int]]) -> bool:
+    grid = deepcopy(grid)
+    _, path = solve_maze(grid)
+    return bool(path)
 
 
 if __name__ == "__main__":
@@ -40,6 +44,8 @@ if __name__ == "__main__":
 
     CELL_SIZE = 10
     GRID = bin_tree_maze(N, M)
+    while not check_solution(GRID):
+        GRID = bin_tree_maze(N, M)
 
     window = tk.Tk()
     window.title("Maze")
@@ -52,4 +58,3 @@ if __name__ == "__main__":
     ttk.Button(window, text="Solve", command=show_solution).pack(pady=20)
 
     window.mainloop()
-
